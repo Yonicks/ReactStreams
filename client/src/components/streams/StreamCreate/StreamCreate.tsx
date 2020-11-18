@@ -20,11 +20,15 @@ class StreamCreate extends React.Component<InjectedFormProps> {
         )
     }
 
+    onSubmit = (formValues: any) => {
+    }
+
     render() {
         return (
-            <form className="ui form">
+            <form className="ui form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                 <Field label="Enter Title" name="title" component={this.renderInput} />
                 <Field label="Enter Description" name="description" component={this.renderInput} />
+                <button className="ui button primary">Submit</button>
             </form>
         );
     }
