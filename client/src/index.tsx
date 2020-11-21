@@ -6,6 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './reducers';
+import reduxThunk from 'redux-thunk';
+
+
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
@@ -15,7 +18,7 @@ declare global {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ as typeof compose || compose
 const store = createStore(
   reducers,
-  composeEnhancers(applyMiddleware())
+  composeEnhancers(applyMiddleware(reduxThunk))
 );
 
 ReactDOM.render(
