@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Stream } from './../../../models/stream';
 import { fetchStream, editStream } from './../../../actions/index';
 import StreamForm from "../StreamForm";
-
+import _ from 'lodash';
 
 export interface Props {
     children?: React.ReactNode,
@@ -25,7 +25,7 @@ class StreamEdit extends React.Component<RouteComponentProps<RouteParams> & Prop
     }
 
     onSubmit = (formValues: any) => {
-
+        this.props.editStream(this.props.match.params.id, formValues);
     }
 
     render() {
@@ -36,7 +36,7 @@ class StreamEdit extends React.Component<RouteComponentProps<RouteParams> & Prop
             <div>
                 <h3>Edit a Stream</h3>
                 <StreamForm
-                    initialValues={this.props.stream}
+                    initialValues={_.pick(this.props.stream, 'title', 'description')}
                     onSubmit={this.onSubmit} />
             </div>
         )
