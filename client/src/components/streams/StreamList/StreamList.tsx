@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 import { fetchStreams } from './../../../actions/index';
 import { Stream } from './../../../models/stream';
 
@@ -7,6 +8,7 @@ interface Props {
     fetchStreams: Function
     streams: any[];
     currentUserId: string;
+    isSignedIn: boolean;
 }
 interface State {
 
@@ -38,10 +40,19 @@ export class StreamList extends Component<Props, State> {
                         {stream.title}
                         <div className="description">{stream.description}</div>
                     </div>
-
                 </div>
             )
         })
+    }
+
+    renderCreate() {
+        if (this.props.isSignedIn) {
+            return (
+                <div style={{ textAlign: 'right' }}>
+                    <Link to="/streams/new" className="ui button primary">Create Stream</Link>
+                </div>
+            )
+        }
     }
 
     render() {
@@ -49,6 +60,7 @@ export class StreamList extends Component<Props, State> {
             <div>
                 <h2>Streams:</h2>
                 <div className="ui called list">{this.renderList()}</div>
+                {this.renderCreate()}
             </div>
         )
     }
@@ -57,7 +69,8 @@ export class StreamList extends Component<Props, State> {
 const mapStateToProps = (state: any) => (
     {
         streams: Object.values(state.streams),
-        currentUserId: state.auth.userId
+        currentUserId: state.auth.userId,
+        isSignedIn: state.auth.isSignedIn,
     }
 )
 
