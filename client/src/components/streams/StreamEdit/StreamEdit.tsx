@@ -1,7 +1,7 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { connect } from 'react-redux';
-import { Stream } from './../../../models/stream';
+import { RouteParams, Stream } from './../../../models/stream';
 import { fetchStream, editStream } from './../../../actions/index';
 import StreamForm from "../StreamForm";
 import _ from 'lodash';
@@ -16,9 +16,7 @@ export interface Props {
 export interface State {
 }
 
-export interface RouteParams {
-    id: string;
-}
+
 class StreamEdit extends React.Component<RouteComponentProps<RouteParams> & Props, State> {
     componentDidMount(): void {
         this.props.fetchStream(this.props.match.params.id)

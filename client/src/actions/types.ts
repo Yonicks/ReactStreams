@@ -7,6 +7,8 @@ export const FETCH_STREAMS = "FETCH_STREAMS";
 export const FETCH_STREAM = "FETCH_STREAM";
 export const DELETE_STREAM = "DELETE_STREAM";
 export const EDIT_STREAM = "EDIT_STREAM";
+export const OPEN_POPUP = "OPEN_POPUP";
+export const CLOSE_POPUP = "CLOSE_POPUP";
 
 
 interface SignInAction {
@@ -44,5 +46,17 @@ interface EditStreamAction {
     payload: any
 }
 
+
+interface OpenPopupAction {
+    type: typeof OPEN_POPUP;
+    payload: boolean
+}
+
+interface ClosePopupAction {
+    type: typeof CLOSE_POPUP;
+    payload: boolean
+}
+
 export type UserActionTypes = SignInAction | SignOutAction;
 export type StreamActionTypes = CreateStreamAction | FetchStreamsAction | FetchStreamAction | DeleteStreamAction | EditStreamAction;
+export type PopupActionTypes = OpenPopupAction | ClosePopupAction;

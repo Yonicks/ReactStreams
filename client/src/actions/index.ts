@@ -9,6 +9,8 @@ import {
     FETCH_STREAM,
     DELETE_STREAM,
     EDIT_STREAM,
+    OPEN_POPUP,
+    CLOSE_POPUP,
 } from './types';
 export const signIn = (userId: string) => {
     return {
@@ -51,5 +53,14 @@ export const editStream = (id: string, formValues: any) => async (dispatch: any)
 export const deleteStream = (id: string) => async (dispatch: any) => {
     await streams.delete(`streams/${id}`);
     dispatch({ type: DELETE_STREAM, payload: id });
+    history.push("/");
 };
 
+
+
+export const togglePopup = (isShow: boolean) => {
+    return {
+        type: isShow ? OPEN_POPUP : CLOSE_POPUP,
+        payload: isShow
+    }
+}

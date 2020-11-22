@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux';
+import React from 'react'
 import { Router, Route } from 'react-router-dom';
 import Header from './components/Header';
 import StreamCreate from './components/streams/StreamCreate';
@@ -12,9 +11,6 @@ import history from './history';
 interface Props {
 
 }
-interface State {
-
-}
 
 
 const App = (props: Props) => (
@@ -25,7 +21,7 @@ const App = (props: Props) => (
         <Route path="/" exact component={StreamList}></Route>
         <Route path="/streams/new" exact component={StreamCreate}></Route>
         <Route path="/streams/edit/:id" exact component={StreamEdit}></Route>
-        <Route path="/streams/delete" exact component={StreamDelete}></Route>
+        <Route path="/streams/delete/:id" exact component={StreamDelete}></Route>
         <Route path="/streams/show" exact component={StreamShow}></Route>
       </div>
     </Router>

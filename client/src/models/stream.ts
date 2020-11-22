@@ -5,3 +5,7 @@ export class Stream {
 
     }
 }
+
+export interface RouteParams {
+    id: string;
+}

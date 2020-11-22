@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-import history from '../../../history';
-import { fetchStreams } from './../../../actions/index';
+import { fetchStreams, togglePopup } from './../../../actions/index';
 import { Stream } from './../../../models/stream';
+import { ModalPopUp } from './../../ModalPopUp';
 
 interface Props {
-    fetchStreams: Function
+    fetchStreams: any
+    togglePopup: any
     streams: any[];
     currentUserId: string;
     isSignedIn: boolean;
+    isPopupShow: boolean;
 }
 interface State {
-
+    show: boolean;
 }
 
 export class StreamList extends Component<Props, State> {
@@ -25,7 +27,7 @@ export class StreamList extends Component<Props, State> {
             return (
                 <div className="right floated content">
                     <Link className="ui button primary" to={`streams/edit/${stream.id}`}>Edit</Link>
-                    <button className="ui button negative">Delete</button>
+                    <Link className="ui button negative" to={`streams/delete/${stream.id}`}>Delete</Link>
                 </div>
             );
         }
@@ -56,6 +58,15 @@ export class StreamList extends Component<Props, State> {
         }
     }
 
+    onDeleteSubmit = () => {
+        this.props.togglePopup(false);
+    }
+
+
+    onDeleteClose = () => {
+        this.props.togglePopup(false);
+    }
+
     render() {
         return (
             <div>
@@ -65,6 +76,9 @@ export class StreamList extends Component<Props, State> {
             </div>
         )
     }
+
+
+
 }
 
 const mapStateToProps = (state: any) => (
@@ -72,11 +86,13 @@ const mapStateToProps = (state: any) => (
         streams: Object.values(state.streams),
         currentUserId: state.auth.userId,
         isSignedIn: state.auth.isSignedIn,
+        isPopupShow: state.popup.isPopupShow,
     }
 )
 
 const mapDispatchToProps = {
-    fetchStreams
+    fetchStreams,
+    togglePopup
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StreamList)
