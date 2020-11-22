@@ -2,13 +2,15 @@ import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { connect } from 'react-redux';
 import { Stream } from './../../../models/stream';
-import { fetchStream } from './../../../actions/index';
+import { fetchStream, editStream } from './../../../actions/index';
+import StreamForm from "../StreamForm";
 
 
 export interface Props {
     children?: React.ReactNode,
     stream: Stream;
     fetchStream: Function;
+    editStream: Function;
 }
 
 export interface State {
@@ -22,12 +24,21 @@ class StreamEdit extends React.Component<RouteComponentProps<RouteParams> & Prop
         this.props.fetchStream(this.props.match.params.id)
     }
 
+    onSubmit = (formValues: any) => {
+
+    }
+
     render() {
         if (!this.props.stream) {
             return <div>Loading...</div>
         }
         else return (
-            <div>{this.props.stream.title}</div>
+            <div>
+                <h3>Edit a Stream</h3>
+                <StreamForm
+                    initialValues={this.props.stream}
+                    onSubmit={this.onSubmit} />
+            </div>
         )
     }
 }
@@ -39,4 +50,4 @@ const mapStateToProps = (state: any, ownProps: RouteComponentProps<RouteParams> 
 
 
 
-export default connect(mapStateToProps, { fetchStream })(StreamEdit);
+export default connect(mapStateToProps, { fetchStream, editStream })(StreamEdit);
